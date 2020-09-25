@@ -1,0 +1,441 @@
+{
+	"info": {
+		"_postman_id": "0cd8724a-2957-49e3-ac40-7d6a1a9a1df7",
+		"name": "API Sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Arugula",
+			"item": [
+				{
+					"name": "Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6df91858-8b4c-4e17-9dca-d12eff7d0468",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200)",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 250ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(250)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/arugula",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"arugula"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "534556c0-6553-45c0-93b7-e870d2a813ea",
+								"exec": [
+									"const responseJson = pm.response.json()",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200)",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 250ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(250)",
+									"});",
+									"",
+									"pm.test(\"Same ID as sent\", function () {",
+									"  const id = pm.environment.get(\"arugula_id\")",
+									"  pm.expect(responseJson.id).to.eql(Number(id))",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/arugula/{{arugula_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"arugula",
+								"{{arugula_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "444a8cca-86e7-4450-9b21-97324ab9d76c",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"  pm.response.to.have.status(204)",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/arugula/{{arugula_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"arugula",
+								"{{arugula_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6e7ab5d-a044-4480-9ee2-4e46d9272a3a",
+								"exec": [
+									"const responseJson = pm.response.json()",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"  pm.response.to.have.status(201)",
+									"});",
+									"",
+									"pm.test(\"Same name as sent\", function () {",
+									"  const name = pm.environment.get(\"arugula_name\")",
+									"  pm.expect(responseJson.name).to.eql(name)",
+									"});",
+									"",
+									"pm.test(\"Same type as sent\", function () {",
+									"  const type = pm.environment.get(\"arugula_type\")",
+									"  pm.expect(responseJson.type).to.eql(type)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{arugula_name}}",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "{{arugula_type}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/arugula",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"arugula"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "103cd0fb-0975-4904-ba31-2d1b88010629",
+								"exec": [
+									"const responseJson = pm.response.json()",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200)",
+									"});",
+									"",
+									"pm.test(\"Same ID as sent\", function () {",
+									"  const id = pm.environment.get(\"arugula_id\")",
+									"  pm.expect(responseJson.id).to.eql(Number(id))",
+									"});",
+									"",
+									"pm.test(\"Same name as sent\", function () {",
+									"  const name = pm.environment.get(\"arugula_name\")",
+									"  pm.expect(responseJson.name).to.eql(name)",
+									"});",
+									"",
+									"pm.test(\"Same type as sent\", function () {",
+									"  const type = pm.environment.get(\"arugula_type\")",
+									"  pm.expect(responseJson.type).to.eql(type)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "{{arugula_name}}",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "{{arugula_type}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/arugula/{{arugula_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"arugula",
+								"{{arugula_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d47da69a-9605-4625-8154-e732ff488be6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7d2b9fd-83b8-4b26-b2f6-1004c56074b5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea835d68-b5a8-4ffd-a9f1-9fbc6fbb22cb",
+						"exec": [
+							"const responseJson = pm.response.json()",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Sucess property\", () => {",
+							"  pm.expect(responseJson).to.have.property(\"success\")",
+							"  pm.expect(responseJson.success).to.eql(true)",
+							"})",
+							"",
+							"pm.test(\"Check token property\", () => {",
+							"  pm.expect(responseJson).to.have.property(\"token\")",
+							"  pm.environment.set(\"token\", responseJson.token)",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{user_email}}",
+							"description": "User's email",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{user_password}}",
+							"description": "User's password",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ec7b9718-d61d-47b5-8f3e-d44ca0b24762",
+						"exec": [
+							"const responseJson = pm.response.json()",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Is same email as used on login\", function () {",
+							"  const email = pm.environment.get(\"user_email\")",
+							"  pm.expect(responseJson.email).to.eql(email);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/api/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "30111469-41d7-4599-bbf3-b80310375ea0",
+				"type": "text/javascript",
+				"exec": [
+					"const types = [",
+					"    \"normal\",",
+					"    \"tiny\",",
+					"    \"green\",",
+					"    \"blue\",",
+					"    \"any random type\"",
+					"];",
+					"",
+					"pm.environment.set(\"arugula_type\", types[_.random(types.length - 1)])",
+					"",
+					"const randName = pm.variables.replaceIn('{{$randomFirstName}}')",
+					"",
+					"pm.environment.set(\"arugula_name\", randName)"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7c413e10-2149-416f-9f27-0b43bb48075e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
